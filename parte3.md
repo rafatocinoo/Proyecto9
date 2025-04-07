@@ -143,58 +143,69 @@ El servidor **soporta versiones obsoletas** de TLS (1.0 y 1.1), lo cual degrada 
 - Se detecta la ausencia de una política de autenticación de autoridades de certificación (CAA).
 
 ---
-## Análisis del certificado SSL de tv.eurosport.com
 
-![tv.eurosport.com](/img/image6.png)
+## Análisis del certificado SSL de xn--alestaavukatlk-lgc.com
 
-En base al informe SSL para `tv.eurosport.com`, el certificado es considerado **válido** y obtiene una calificación general de **A**, lo cual indica una configuración segura y moderna. A continuación se detallan los elementos que contribuyen a esta evaluación positiva:
+![alestaavukatlik.com](/img/image6.png)
+
+En base al informe SSL para `xn--alestaavukatlk-lgc.com`, el certificado es considerado **no válido** y obtiene una calificación general de **T**, la cual solo sería válida si se ignoran los problemas de confianza. A continuación se detallan los motivos que afectan negativamente su calificación:
 
 ---
 
 ### Características del certificado
 
 **1. Algoritmo y tamaño de clave**  
-- **Algoritmo utilizado:** SHA384 con ECDSA  
-- **Tamaño de clave:** EC 256 bits  
-Este tipo de clave es moderno, seguro y eficiente, y el uso de ECDSA demuestra una adopción de algoritmos criptográficos de nueva generación.
+- **Algoritmo utilizado:** SHA256 con RSA  
+- **Tamaño de clave:** 4096 bits  
+El tamaño de la clave es robusto y el algoritmo es seguro. Esto proporciona un buen nivel de cifrado.
 
 **2. Período de validez**  
-- **Inicio:** 06 de marzo de 2023  
-- **Expiración:** 04 de junio de 2025  
-El certificado se encuentra dentro de su vigencia y aún tiene más de un mes de validez, lo cual es adecuado para mantener la confianza sin interrupciones.
+- **Inicio:** 12 de diciembre de 2024  
+- **Expiración:** 10 de marzo de 2025  
+El certificado **ya ha expirado** (hace 28 días), lo que lo vuelve completamente inválido a pesar de tener buenos parámetros criptográficos.
 
 **3. Entidad emisora**  
-- **CA emisora:** R3 (Let’s Encrypt)  
-Let’s Encrypt es una autoridad certificadora ampliamente reconocida y de confianza, utilizada por una gran cantidad de sitios en todo el mundo.
+- **CA emisora:** R10  
+Esta autoridad certificadora **no es reconocida** por los principales navegadores, lo cual contribuye al estado de no confianza.
 
 **4. Cobertura de dominio**  
-- **Nombre común (CN):** `tv.eurosport.com`  
-- **Dominios alternativos:** `tv.eurosport.com`  
-La cobertura del dominio es precisa y adecuada para el uso previsto.
+- **Nombre común (CN):** `xn--alestaavukatlk-lgc.com`  
+- **Dominios alternativos:** `www.xn--alestaavukatlk-lgc.com`, `xn--alestaavukatlk-lgc.com`  
+La cobertura de dominios es técnicamente válida, pero pierde efecto por el estado expirado y la falta de reconocimiento de la CA.
+
+---
+
+### Problemas detectados
+
+**1. Certificado expirado**  
+El certificado ha expirado, lo que significa que no puede ofrecer una conexión segura. Esto invalida su uso inmediato.
+
+**2. No es confiable para navegadores**  
+El certificado **no es confiado por los navegadores modernos**, por lo que los usuarios recibirán advertencias de seguridad al acceder al sitio.
+
+**3. Soporte limitado en navegadores**  
+El sitio solo funciona correctamente con navegadores que soportan **SNI (Server Name Indication)**, lo cual puede excluir navegadores o dispositivos más antiguos.
+
+**4. No se utiliza OCSP Must-Staple**  
+Aunque se ofrece OCSP, no se implementa **OCSP Must-Staple**, lo que disminuye la capacidad de verificar en tiempo real la validez del certificado de forma obligatoria.
 
 ---
 
 ### Fortalezas detectadas
 
-**1. Certificado confiable y no revocado**  
-El certificado no ha sido revocado y ha pasado todas las verificaciones OCSP y CRL, lo cual asegura su validez en tiempo real.
+**1. Certificación Transparente (CT)**  
+Sí se aplica Certificación Transparente, lo cual es una buena práctica para la seguridad y monitoreo público del certificado.
 
-**2. Protocolos modernos soportados**  
-El servidor **soporta TLS 1.3**, el protocolo más reciente y seguro actualmente disponible.
+**2. Soporte de TLS moderno**  
+El servidor **soporta TLS 1.3**, el protocolo más reciente y seguro para conexiones HTTPS.
 
-**3. Validación del certificado**  
-- Certificado con validación **de dominio (DV)**.  
-- Compatible con **transparencia de certificados (CT)**, lo cual mejora la visibilidad pública y la seguridad.
-
-**4. OCSP y CRL activos**  
-- Soporta **OCSP** y **OCSP Must-Staple**, lo cual mejora la respuesta rápida en caso de revocación.  
-- También se valida correctamente mediante listas CRL.
-
-**5. Compatibilidad de plataformas**  
-El certificado es confiable en navegadores modernos como **Mozilla, Apple, Android, Java y Windows**.
+**3. Política CAA configurada**  
+Existe una política DNS CAA configurada correctamente para el dominio, lo que indica cierto cuidado en la configuración del entorno.
 
 ---
 
+### Conclusión
 
+Aunque el certificado de `xn--alestaavukatlk-lgc.com` cuenta con un cifrado fuerte y soporte para TLS 1.3, se encuentra **expirado** y **no es confiado por los navegadores modernos** debido a su emisor. Estos factores, sumados a la falta de medidas más estrictas como OCSP Must-Staple, resultan en una calificación negativa. Es imprescindible renovar el certificado con una CA confiable y mantener la configuración actualizada para garantizar una conexión segura.
 
 
