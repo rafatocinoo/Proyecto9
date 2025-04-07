@@ -14,7 +14,7 @@ Para comparar, a continuación se presentará un ejemplo de un certificado firma
 ![Certificado2](/img/image2.png)
 
 
-# Comparación de Certificados SSL
+# Comparación de certificados SSL
 
 A continuación, se presentan las diferencias entre dos certificados SSL visualizados en dos entornos distintos. Uno corresponde al dominio `*.pages.github.io` y el otro a un servidor local con dirección IP `10.0.2.151`.
 
